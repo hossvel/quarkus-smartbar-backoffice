@@ -22,6 +22,6 @@ class CategoriesResourceTest {
                .statusCode(200)
                 .extract().response();
        final JsonPath jsonPath = response.jsonPath();
-       Assertions.assertEquals("drink!",jsonPath.getString("[0].name"));
+       Assertions.assertEquals("drink",jsonPath.getString("[0].name"));
     }
 }

@@ -11,27 +11,27 @@ import java.util.List;
 public class CategoriesResource implements CategoriesApi {
 
     @Override
-    public void createCategory(Category category) {
-
-    }
-
-    @Override
-    public void deleteCategoryById(String categoryId) {
-
-    }
-
-    @Override
-    public List<Category> getCategories() {
-        return List.of(new Category().name("drink!"));
-    }
-
-    @Override
-    public Category getCategoryById(String categoryId) {
+    public Response createCategory(Category category) {
         return null;
     }
 
     @Override
-    public void updateCategoryById(String categoryId, Category category) {
+    public Response deleteCategoryById(String categoryId) {
+        return null;
+    }
 
+    @Override
+    public Response getCategories() {
+        return Response.ok(List.of(new Category().name("drink"))).build();
+    }
+
+    @Override
+    public Response getCategoryById(String categoryId) {
+        return null;
+    }
+
+    @Override
+    public Response updateCategoryById(String categoryId, Category category) {
+        return null;
     }
 }
