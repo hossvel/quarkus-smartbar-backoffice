@@ -1,0 +1,254 @@
+openapi: 3.0.2
+
+info:
+  title: Smarbar Backoffice AP
+  description: Smarbar Backoffice AP
+  version: 1.0.0
+paths:
+  /categories:
+    get:
+      summary: get list of categories
+      description:  get  list of **categories**
+      operationId: getCategories
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/category"
+    post:
+      summary: create a new category
+      description: create a new **category**
+      operationId: createCategory
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/category"
+      responses:
+        201:
+          description: Success
+          $ref: "#/components/responses/201"
+  /categories/{categoryId}:
+    parameters:
+      - name: categoryId
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: update a category by id
+      description: update a **category** by its id
+      operationId: updateCategoryById
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/category"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      summary: delete a category by id
+      description: delete a **category** by its id
+      operationId: deleteCategoryById
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      summary: get a category by id
+      description: get a **category** by its id
+      operationId: getCategoryById
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/category"
+  /articles:
+    get:
+      summary: get list of articles
+      description:  get  list of **articles**
+      operationId: getArticles
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/article"
+    post:
+      summary: create a new article
+      description: create a new **article**
+      operationId: createArticle
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+  /articles/{articleId}:
+    parameters:
+      - name: articleId
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      summary: update a article by id
+      description: update a **article** by its id
+      operationId: updateArticleById
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      summary: delete a article by id
+      description: delete a **article** by its id
+      operationId: deleteArticleById
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      summary: get a article by id
+      description: get a **article** by its id
+      operationId: getArticleById
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/article"
+  /tables:
+    get:
+      operationId: getTables
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/table"
+    post:
+      operationId: createTable
+      tags:
+        - Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/table"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+  /tables/{tableId}:
+    parameters:
+      - name: tableId
+        schema:
+          type: string
+        in: path
+        required: true
+    put:
+      operationId: updateTableById
+      tags:
+        - Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/table"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      operationId: deleteTableById
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      operationId: getTableById
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/table"
+components:
+  schemas:
+    category:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    article:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        picture:
+          type: string
+    table:
+      type: object
+      properties:
+        name:
+          type: string
+        seatCount:
+          type: string
+        active:
+          type: boolean
+  responses:
+    201:
+      description: Entity successfully created
+      headers:
+        Location:
+          description: Entity successfully created
+          schema:
+            type: string
