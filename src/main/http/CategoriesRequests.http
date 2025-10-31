@@ -1,0 +1,26 @@
+@env local
+
+### Create new
+POST http://localhost:8080/categories
+Content-Type: application/json
+
+{
+  "name": "wine"
+}
+
+### Modify
+PUT http://localhost:8080/categories/4711
+Content-Type: application/json
+
+{
+  "name": "wine"
+}
+
+### Get all
+GET http://localhost:8080/categories
+
+### Get single
+GET http://localhost:8080/categories/4711
+
+### Delete
+DELETE http://localhost:8080/categories/4711
