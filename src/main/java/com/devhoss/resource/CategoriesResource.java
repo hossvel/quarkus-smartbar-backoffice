@@ -33,7 +33,7 @@ public class CategoriesResource implements CategoriesApi {
 
     @Override
     public Response getCategories() {
-        return Response.ok(List.of(categoriesService.get())).build();
+        return Response.ok(categoriesService.getAll()).build();
     }
 
     @Override
