@@ -18,13 +18,13 @@ import static io.restassured.RestAssured.given;
 @QuarkusTest
 class CategoriesResourceTest {
 
-  // @InjectMock
-  // CategoriesService categoriesServiceMock;
+   @InjectMock
+   CategoriesService categoriesServiceMock;
 
     @Test
     void getsListCategories() {
 
-       // Mockito.when(categoriesServiceMock.getAll()).thenReturn(List.of(new Category().name("Mock")));
+       Mockito.when(categoriesServiceMock.getAll()).thenReturn(List.of(new Category().name("InjectMock")));
 
        final Response response = given()
                 .when().get("/categories")
@@ -32,7 +32,7 @@ class CategoriesResourceTest {
                .statusCode(200)
                 .extract().response();
        final JsonPath jsonPath = response.jsonPath();
-       Assertions.assertEquals("drinksMockService",jsonPath.getString("[0].name"));
+       Assertions.assertEquals("InjectMock",jsonPath.getString("[0].name"));
     }
 
 
