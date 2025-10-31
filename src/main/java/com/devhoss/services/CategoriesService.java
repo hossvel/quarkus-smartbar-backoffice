@@ -1,4 +1,4 @@
-package com.devhoss;
+package com.devhoss.services;
 
 import com.devhoss.model.Category;
 import jakarta.enterprise.context.ApplicationScoped;

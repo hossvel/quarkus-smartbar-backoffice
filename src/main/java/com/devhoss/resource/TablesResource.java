@@ -1,4 +1,4 @@
-package com.devhoss;
+package com.devhoss.resource;
 
 import com.devhoss.api.TablesApi;
 import com.devhoss.model.Table;

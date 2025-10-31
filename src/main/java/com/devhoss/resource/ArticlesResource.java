@@ -1,4 +1,4 @@
-package com.devhoss;
+package com.devhoss.resource;
 
 import com.devhoss.api.ArticlesApi;
 import com.devhoss.model.Article;

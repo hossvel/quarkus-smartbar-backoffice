@@ -1,5 +1,6 @@
-package com.devhoss;
+package com.devhoss.resource;
 
+import com.devhoss.services.CategoriesService;
 import com.devhoss.api.CategoriesApi;
 import com.devhoss.model.Category;
 import jakarta.inject.Inject;
