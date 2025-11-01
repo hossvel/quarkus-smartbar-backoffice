@@ -1,12 +1,23 @@
 package com.devhoss.resource;
 
 import com.devhoss.api.TablesApi;
-import com.devhoss.model.Table;
+import com.devhoss.model.ApiTable;
+import com.devhoss.services.CategoriesService;
+import com.devhoss.services.TablesService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-public class TablesResource implements TablesApi {
+public class TablesResource implements TablesApi{
+
+    private final TablesService tablesService;
+
+    @Inject
+    public TablesResource(TablesService tablesService) {
+        this.tablesService = tablesService;
+    }
+
     @Override
-    public Response createTable(Table table) {
+    public Response createTable(ApiTable apiTable) {
         return null;
     }
 
@@ -22,11 +33,11 @@ public class TablesResource implements TablesApi {
 
     @Override
     public Response getTables() {
-        return null;
+        return Response.ok(tablesService.getAll()).build();
     }
 
     @Override
-    public Response updateTableById(String tableId, Table table) {
+    public Response updateTableById(String tableId, ApiTable apiTable) {
         return null;
     }
 }
