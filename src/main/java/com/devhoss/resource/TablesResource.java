@@ -2,10 +2,13 @@ package com.devhoss.resource;
 
 import com.devhoss.api.TablesApi;
 import com.devhoss.model.ApiTable;
+import com.devhoss.model.Table;
 import com.devhoss.services.CategoriesService;
 import com.devhoss.services.TablesService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+
+import java.net.URI;
 
 public class TablesResource implements TablesApi{
 
@@ -13,12 +16,23 @@ public class TablesResource implements TablesApi{
 
     @Inject
     public TablesResource(TablesService tablesService) {
+
         this.tablesService = tablesService;
     }
 
     @Override
     public Response createTable(ApiTable apiTable) {
-        return null;
+
+        final Table table = new Table();
+        table.setName(apiTable.getName());
+        table.setSeatCount(apiTable.getSeatCount());
+        table.setActive(apiTable.getActive());
+
+        final Table persitedTable = tablesService.persit(table);
+        System.out.println("TABLE ID: " + persitedTable.getId());
+        return Response.created(URI.create("/tables/" + persitedTable.getId())).build();
+
+
     }
 
     @Override
@@ -33,7 +47,8 @@ public class TablesResource implements TablesApi{
 
     @Override
     public Response getTables() {
-        return Response.ok(tablesService.getAll()).build();
+       return null;
+       // return Response.ok(tablesService.getAll()).build();
     }
 
     @Override

@@ -2,16 +2,23 @@ package com.devhoss.services;
 
 import com.devhoss.model.ApiTable;
 import com.devhoss.model.Category;
+import com.devhoss.model.Table;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
 @ApplicationScoped
-public class TablesService {
-    private final ApiTable category = new ApiTable().name("Berlin");
+public class TablesService extends CrudService<Table> {
 
-    public List<ApiTable> getAll() {
-        return List.of(category);
+    public TablesService() {
+        // Just for CDI requirements
+        super(null);
     }
 
+    @Inject
+    public TablesService(EntityManager entityManager) {
+        super(entityManager);
+    }
 }
