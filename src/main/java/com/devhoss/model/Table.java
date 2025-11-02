@@ -3,9 +3,12 @@ package com.devhoss.model;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@jakarta.persistence.Table(name = "Sbo_Table")
+@jakarta.persistence.Table(name = "Sbo_Table", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
 public class Table extends BaseEntity {
 
     private String name;

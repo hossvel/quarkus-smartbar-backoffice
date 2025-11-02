@@ -1,6 +1,7 @@
 package com.devhoss;
 
 import com.devhoss.model.ApiCategory;
+import com.devhoss.model.Category;
 import com.devhoss.services.CategoriesService;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
@@ -24,8 +25,9 @@ class CategoriesResourceTest {
     @Test
     void getsListCategories() {
 
-       Mockito.when(categoriesServiceMock.getAll()).thenReturn(List.of(new ApiCategory().name("InjectMock")));
-
+        final Category category = new Category();
+        category.setName("InjectMock");
+        Mockito.when(categoriesServiceMock.listAll()).thenReturn(List.of(category));
        final Response response = given()
                 .when().get("/categories")
                 .then()
