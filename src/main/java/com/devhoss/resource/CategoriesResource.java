@@ -1,8 +1,9 @@
 package com.devhoss.resource;
 
+import com.devhoss.model.ApiCategory;
 import com.devhoss.services.CategoriesService;
 import com.devhoss.api.CategoriesApi;
-import com.devhoss.model.Category;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -12,8 +13,8 @@ import java.net.URI;
 import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class CategoriesResource implements CategoriesApi {
-    private final Category category = new Category().name("drinks!");
 
+    private final ApiCategory category = new ApiCategory().name("drinks!");
     private final CategoriesService categoriesService;
 
     @Inject
@@ -22,13 +23,13 @@ public class CategoriesResource implements CategoriesApi {
     }
 
     @Override
-    public Response createCategory(Category category) {
-        return Response.created(URI.create("todo")).build();
+    public Response createCategory(ApiCategory apiCategory) {
+        return null;
     }
 
     @Override
-    public Response deleteCategoryById(String categoryId) {
-        return Response.ok().build();
+    public Response deleteCategoryById(Long categoryId) {
+        return null;
     }
 
     @Override
@@ -37,12 +38,12 @@ public class CategoriesResource implements CategoriesApi {
     }
 
     @Override
-    public Response getCategoryById(String categoryId) {
-        return Response.ok(category).build();
+    public Response getCategoryById(Long categoryId) {
+        return null;
     }
 
     @Override
-    public Response updateCategoryById(String categoryId, Category category) {
-        return Response.ok().build();
+    public Response updateCategoryById(Long categoryId, ApiCategory apiCategory) {
+        return null;
     }
 }

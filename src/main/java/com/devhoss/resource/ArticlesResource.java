@@ -1,22 +1,25 @@
 package com.devhoss.resource;
 
 import com.devhoss.api.ArticlesApi;
-import com.devhoss.model.Article;
+import com.devhoss.model.ApiArticle;
+import com.devhoss.services.TablesService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-public class ArticlesResource implements ArticlesApi {
+public class ArticlesResource   implements ArticlesApi {
+
     @Override
-    public Response createArticle(Article article) {
+    public Response createArticle(Long xCategoryId, ApiArticle apiArticle) {
         return null;
     }
 
     @Override
-    public Response deleteArticleById(String articleId) {
+    public Response deleteArticleById(Long articleId) {
         return null;
     }
 
     @Override
-    public Response getArticleById(String articleId) {
+    public Response getArticleById(Long articleId) {
         return null;
     }
 
@@ -26,7 +29,7 @@ public class ArticlesResource implements ArticlesApi {
     }
 
     @Override
-    public Response updateArticleById(String articleId, Article article) {
+    public Response updateArticleById(Long articleId, ApiArticle apiArticle) {
         return null;
     }
 }
