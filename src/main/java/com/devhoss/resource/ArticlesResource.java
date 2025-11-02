@@ -40,7 +40,7 @@ public class ArticlesResource  implements ArticlesApi {
         }
         final Article article = new Article();
         mappingArticles.mapApiArticleToArticle(apiArticle, article);
-        //article.setCategory(category.get());
+        article.setCategory(category.get());
         final Article persitedArticle = articlesService.persit(article);
         return Response.created(URI.create("/articles/" + persitedArticle.getId())).build();
     }
@@ -60,6 +60,7 @@ public class ArticlesResource  implements ArticlesApi {
         if (article.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+
         return Response.ok(mappingArticles.mapArticleToApiArticle(article.get())).build();
     }
 

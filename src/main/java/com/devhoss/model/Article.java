@@ -1,14 +1,22 @@
 package com.devhoss.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@jakarta.persistence.Table(name = "Sbo_Article")
+@Table(
+        name = "Sbo_Article",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"name", "category_id"})
+        }
+)
+
 public class Article extends BaseEntity {
 
     @NotNull
@@ -24,6 +32,9 @@ public class Article extends BaseEntity {
     @NotNull
     private String pictureBase64;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public String getName() {
         return name;
@@ -55,6 +66,14 @@ public class Article extends BaseEntity {
 
     public void setPictureBase64(String pictureBase64) {
         this.pictureBase64 = pictureBase64;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
 }
