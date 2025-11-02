@@ -1,6 +1,7 @@
 package com.devhoss.resource;
 
 import com.devhoss.api.ArticlesApi;
+import com.devhoss.mapper.ArticleMapper;
 import com.devhoss.mapper.MappingArticles;
 import com.devhoss.mapper.MappingCategories;
 import com.devhoss.model.ApiArticle;
@@ -22,10 +23,10 @@ import java.util.Optional;
 public class ArticlesResource  implements ArticlesApi {
 
     private final ArticlesService articlesService;
-    private final MappingArticles mappingArticles;
+    private final ArticleMapper mappingArticles;
     private final CategoriesService categoriesService;
     @Inject
-    public ArticlesResource(ArticlesService articlesService, MappingArticles mappingArticles, CategoriesService categoriesService) {
+    public ArticlesResource(ArticlesService articlesService, ArticleMapper mappingArticles, CategoriesService categoriesService) {
         this.articlesService = articlesService;
         this.mappingArticles = mappingArticles;
         this.categoriesService = categoriesService;
@@ -39,7 +40,7 @@ public class ArticlesResource  implements ArticlesApi {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         final Article article = new Article();
-        mappingArticles.mapApiArticleToArticle(apiArticle, article);
+        mappingArticles.mapToArticle(apiArticle, article);
         article.setCategory(category.get());
         final Article persitedArticle = articlesService.persit(article);
         return Response.created(URI.create("/articles/" + persitedArticle.getId())).build();
@@ -61,13 +62,13 @@ public class ArticlesResource  implements ArticlesApi {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return Response.ok(mappingArticles.mapArticleToApiArticle(article.get())).build();
+        return Response.ok(mappingArticles.mapToApiArticle(article.get())).build();
     }
 
     @Override
     public Response getArticles() {
         final List<Article> articles = articlesService.listAll();
-        return Response.ok(articles.stream().map(mappingArticles::mapArticleToApiArticle).toList())
+        return Response.ok(articles.stream().map(mappingArticles::mapToApiArticle).toList())
                 .build();
     }
 
@@ -78,7 +79,7 @@ public class ArticlesResource  implements ArticlesApi {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         final Article article = existingArticle.get();
-        mappingArticles.mapApiArticleToArticle(apiArticle, article);
+        mappingArticles.mapToArticle(apiArticle, article);
         articlesService.update(article);
         return Response.ok().build();
     }
