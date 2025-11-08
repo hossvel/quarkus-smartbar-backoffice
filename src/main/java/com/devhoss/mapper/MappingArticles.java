@@ -3,24 +3,18 @@ package com.devhoss.mapper;
 import com.devhoss.model.ApiArticle;
 import com.devhoss.model.Article;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
-@ApplicationScoped
-public class MappingArticles {
+@Mapper(componentModel = MappingConstants.ComponentModel.CDI)
+public interface MappingArticles {
 
-    public void mapApiArticleToArticle(ApiArticle apiArticle, Article article) {
-        article.setName(apiArticle.getName());
-        article.setDescription(apiArticle.getDescription());
-        article.setPrice(apiArticle.getPrice());
-        article.setPictureBase64(apiArticle.getPicture());
-    }
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "picture", target = "pictureBase64")
+    void mapApiArticleToArticle(ApiArticle apiArticle, @MappingTarget Article article);
 
-    public ApiArticle mapArticleToApiArticle(Article article) {
-        final ApiArticle apiArticle = new ApiArticle();
-        apiArticle.setDescription(article.getDescription());
-        apiArticle.setName(article.getName());
-        apiArticle.setPicture(article.getPictureBase64());
-        apiArticle.setPrice(article.getPrice());
-        apiArticle.setId(article.getId());
-        return apiArticle;
-    }
+    @Mapping(source = "pictureBase64", target = "picture")
+    ApiArticle mapArticleToApiArticle(Article article);
 }

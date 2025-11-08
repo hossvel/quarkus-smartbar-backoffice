@@ -3,19 +3,17 @@ package com.devhoss.mapper;
 import com.devhoss.model.ApiCategory;
 import com.devhoss.model.Category;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
-@ApplicationScoped
-public class MappingCategories {
-    public void mapApiCategoryToCategory(ApiCategory apiCategory, Category category) {
-        category.setName(apiCategory.getName());
-        category.setDescription(apiCategory.getDescription());
-    }
+@Mapper(componentModel = MappingConstants.ComponentModel.CDI)
+public interface MappingCategories {
 
-    public ApiCategory mapCategoryToApiCategory(Category category) {
-        final ApiCategory apiCategory = new ApiCategory();
-        apiCategory.setDescription(category.getDescription());
-        apiCategory.setName(category.getName());
-        apiCategory.setId(category.getId());
-        return apiCategory;
-    }
+    @Mapping(target = "id", ignore = true)
+    void mapApiCategoryToCategory(ApiCategory apiCategory, @MappingTarget Category category);
+
+    ApiCategory mapCategoryToApiCategory(Category category);
+
 }

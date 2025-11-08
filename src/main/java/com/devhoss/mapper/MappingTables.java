@@ -2,23 +2,17 @@ package com.devhoss.mapper;
 
 import com.devhoss.model.ApiTable;
 import com.devhoss.model.Table;
-import jakarta.enterprise.context.ApplicationScoped;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
-@ApplicationScoped
-public class MappingTables {
+@Mapper(componentModel = MappingConstants.ComponentModel.CDI)
+public interface MappingTables {
 
-    public void mapApiTableToTable(ApiTable apiTable, Table table) {
-        table.setName(apiTable.getName());
-        table.setSeatCount(apiTable.getSeatCount());
-        table.setActive(apiTable.getActive());
-    }
+    @Mapping(target = "id", ignore = true)
+    void mapApiTableToTable(ApiTable apiTable, @MappingTarget Table table);
 
-    public ApiTable mapTableToApiTable(Table table) {
-        final ApiTable apiTable = new ApiTable();
-        apiTable.setActive(table.getActive());
-        apiTable.setName(table.getName());
-        apiTable.setSeatCount(table.getSeatCount());
-        apiTable.setId(table.getId());
-        return apiTable;
-    }
+    ApiTable mapTableToApiTable(Table table);
+
 }
