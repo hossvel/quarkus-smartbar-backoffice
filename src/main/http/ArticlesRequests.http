@@ -22,3 +22,6 @@ GET {{url}}/tables/4711
 
 ### Delete
 DELETE {{url}}/tables/4711
+
+### Get by category
+GET {{url}}/articles/category/1001
