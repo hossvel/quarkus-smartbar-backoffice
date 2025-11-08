@@ -1,6 +1,7 @@
 package com.devhoss;
 
 import com.devhoss.model.Category;
+import io.quarkus.panache.mock.PanacheMock;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -20,6 +21,7 @@ class CategoriesResourceTest {
     @Test
     void getsListCategories() {
 
+        PanacheMock.mock(Category.class);
         final Category category = new Category();
         category.name = ("InjectMock");
         Mockito.when(Category.listAll()).thenReturn(List.of(category));
