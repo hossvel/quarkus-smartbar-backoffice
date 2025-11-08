@@ -93,11 +93,6 @@
             <artifactId>quarkus-junit5-mockito</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-panache-mock</artifactId>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
 

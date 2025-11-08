@@ -1,7 +1,7 @@
 package com.devhoss;
 
 import com.devhoss.model.Category;
-import io.quarkus.panache.mock.PanacheMock;
+import com.devhoss.repository.CategoryRepository;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -18,13 +18,16 @@ import static io.restassured.RestAssured.given;
 @QuarkusTest
 class CategoriesResourceTest {
 
+    @InjectMock
+    private CategoryRepository categoryRepository;
+
     @Test
     void getsListCategories() {
 
-        PanacheMock.mock(Category.class);
+
         final Category category = new Category();
-        category.name = ("InjectMock");
-        Mockito.when(Category.listAll()).thenReturn(List.of(category));
+        category.setName("InjectMock");
+        Mockito.when(categoryRepository.listAll()).thenReturn(List.of(category));
 
        final Response response = given()
                 .when().get("/categories")
