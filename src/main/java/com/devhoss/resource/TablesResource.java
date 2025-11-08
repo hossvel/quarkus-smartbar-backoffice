@@ -4,23 +4,22 @@ import com.devhoss.api.TablesApi;
 import com.devhoss.mapper.MappingTables;
 import com.devhoss.model.ApiTable;
 import com.devhoss.model.Table;
-import com.devhoss.services.CategoriesService;
-import com.devhoss.services.TablesService;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 public class TablesResource implements TablesApi {
 
-    private final TablesService tablesService;
+
     private final MappingTables mappingTables;
 
     @Inject
-    public TablesResource(TablesService tablesService,MappingTables mappingTables) {
-        this.tablesService = tablesService;
+    public TablesResource(MappingTables mappingTables) {
+
         this.mappingTables = mappingTables;
     }
 
@@ -28,23 +27,24 @@ public class TablesResource implements TablesApi {
     public Response createTable(ApiTable apiTable) {
         final Table table = new Table();
         mappingTables.mapApiTableToTable(apiTable, table);
-        final Table persitedTable = tablesService.persit(table);
-        return Response.created(URI.create("/tables/" + persitedTable.getId())).build();
+        table.persist();
+        return Response.created(URI.create("/tables/" + table.id)).build();
     }
 
     @Override
     public Response deleteTableById(Long tableId) {
 
-        final Optional<Table> table = tablesService.deleteById(tableId);
+        final Optional<Table> table = Table.findByIdOptional(tableId);
         if (table.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        table.get().delete();
         return Response.ok().build();
     }
 
     @Override
     public Response getTableById(Long tableId) {
-        final Optional<Table> table = tablesService.getById(tableId);
+        final Optional<Table> table = Table.findByIdOptional(tableId);
         if (table.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -53,20 +53,20 @@ public class TablesResource implements TablesApi {
 
     @Override
     public Response getTables() {
-        final List<Table> tables = tablesService.listAll();
+        final List<Table> tables = Table.listAll();
         return Response.ok(tables.stream().map(mappingTables::mapTableToApiTable).toList())
                 .build();
     }
 
     @Override
     public Response updateTableById(Long tableId, ApiTable apiTable) {
-        final Optional<Table> existingTable = tablesService.getById(tableId);
+        final Optional<Table> existingTable = Table.findByIdOptional(tableId);
         if (existingTable.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         final Table table = existingTable.get();
         mappingTables.mapApiTableToTable(apiTable, table);
-        tablesService.update(table);
+
         return Response.ok().build();
     }
 }

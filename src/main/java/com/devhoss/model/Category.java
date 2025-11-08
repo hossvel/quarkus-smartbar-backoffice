@@ -1,6 +1,8 @@
 package com.devhoss.model;
 
 
+import io.quarkus.hibernate.orm.panache.Panache;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.UniqueConstraint;
 
@@ -13,27 +15,10 @@ import jakarta.persistence.Table;
 @jakarta.persistence.Table(name = "Sbo_Category", uniqueConstraints = {
         @UniqueConstraint(columnNames = "name")
 })
-public class Category extends BaseEntity {
+public class Category extends PanacheEntity {
 
     @NotNull
-    private String name;
-
+    public String name;
     @NotNull
-    private String description;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String description;
 }

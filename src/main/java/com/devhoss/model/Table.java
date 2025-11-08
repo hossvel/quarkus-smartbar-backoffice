@@ -2,6 +2,7 @@ package com.devhoss.model;
 
 
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.UniqueConstraint;
 
@@ -9,33 +10,9 @@ import jakarta.persistence.UniqueConstraint;
 @jakarta.persistence.Table(name = "Sbo_Table", uniqueConstraints = {
         @UniqueConstraint(columnNames = "name")
 })
-public class Table extends BaseEntity {
+public class Table extends PanacheEntity {
 
-    private String name;
-    private Integer seatCount;
-    private Boolean active;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getSeatCount() {
-        return seatCount;
-    }
-
-    public void setSeatCount(Integer seatCount) {
-        this.seatCount = seatCount;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+    public String name;
+    public Integer seatCount;
+    public Boolean active;
 }
