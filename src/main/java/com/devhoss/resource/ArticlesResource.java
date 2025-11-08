@@ -10,6 +10,9 @@ import com.devhoss.repository.CategoryRepository;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -88,4 +91,17 @@ public class ArticlesResource  implements ArticlesApi {
 
         return Response.ok().build();
     }
+
+    @GET
+    @Path("/category/{categoryId}")
+    @Produces({"application/json"})
+    public Response listByCategory(@PathParam("categoryId") Long categoryId) {
+        final Optional<Category> category = categoryRepository.findByIdOptional(categoryId);
+        if (category.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        final List<Article> articles = articleRepository.listByCategory(category.get());
+        return Response.ok(articles.stream().map(mappingArticles::mapToApiArticle)).build();
+    }
+
 }
